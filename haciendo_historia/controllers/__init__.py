@@ -1,0 +1,1 @@
+from controllers.history_controller import BrowserHistoryController

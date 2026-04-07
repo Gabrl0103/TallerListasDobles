@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haciendo Historia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+<header>
+    <div class="header-brand">
+        <div class="logo-mark">HH</div>
+        <h1>Haciendo <span>Historia</span></h1>
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div>
+            <p class="section-title">Agregar Nueva Entrada</p>
+            <div class="card">
+                <div class="form-group">
+                    <label for="input-url">URL</label>
+                    <input type="text" id="input-url" placeholder="https://ejemplo.com" />
+                </div>
+                <div class="form-group">
+                    <label for="input-title">Título de la Página</label>
+                    <input type="text" id="input-title" placeholder="Título de la página" />
+                </div>
+                <div class="form-group">
+                    <label for="input-position">Posición de Inserción</label>
+                    <select id="input-position" onchange="onPositionChange()">
+                        <option value="end">Agregar al Final</option>
+                        <option value="start">Agregar al Inicio</option>
+                        <option value="index">En un índice específico</option>
+                    </select>
+                </div>
+                <div class="form-group index-input-wrapper" id="index-input-wrapper">
+                    <label for="input-index">Índice</label>
+                    <input type="number" id="input-index" placeholder="0" min="0" />
+                </div>
+                <button class="btn btn-primary" onclick="addEntry()">Agregar Entrada</button>
+            </div>
+        </div>
+
+        <div>
+            <p class="section-title">Buscar en el Historial</p>
+            <div class="card">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Buscar por URL o título..." />
+                    <button class="btn btn-secondary btn-sm" onclick="searchEntries()">Buscar</button>
+                </div>
+                <div style="margin-top: 0.75rem;">
+                    <button class="btn btn-secondary" onclick="fetchHistory()">Limpiar búsqueda</button>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main-panel">
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-total">0</div>
+                <div class="stat-label">Nodos Totales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-head">-</div>
+                <div class="stat-label">Índice de Inicio</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-tail">-</div>
+                <div class="stat-label">Índice de Fin</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="section-header">
+                <p class="section-title" style="margin:0">Entradas del Historial</p>
+                <div style="display:flex; gap:0.5rem; align-items:center">
+                    <span class="badge mono" id="total-badge">0 entradas</span>
+                    <button class="btn btn-secondary btn-sm" id="btn-reverse" onclick="toggleReverse()">Orden Inverso</button>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 0; overflow: hidden;">
+                <div class="history-list" id="history-list">
+                    <div class="loading">Cargando...</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
